@@ -48,8 +48,9 @@
                     <button type="button" wire:click="closeModal" class="px-4 py-2 rounded-xl text-gray-400 hover:text-gray-100 hover:bg-elevated transition-colors">
                         إلغاء
                     </button>
-                    <button type="submit" class="px-6 py-2 rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-400 transition-colors">
-                        حفظ المصروف
+                    <button type="submit" class="px-6 py-2 rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-400 transition-colors active:scale-95 transition-transform flex items-center gap-2">
+                        <span wire:loading.remove>حفظ المصروف</span>
+                        <span wire:loading>جاري الحفظ...</span>
                     </button>
                 </div>
             </form>

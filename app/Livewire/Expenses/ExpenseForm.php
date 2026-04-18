@@ -61,6 +61,7 @@ class ExpenseForm extends Component
         ]);
 
         $this->dispatch('expenseSaved');
+        $this->dispatch('toast-message', message: 'تم حفظ المصروف بنجاح', type: 'success');
         $this->closeModal();
     }
 
