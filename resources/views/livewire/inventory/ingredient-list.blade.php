@@ -1,30 +1,30 @@
 <div>
     <div class="mb-6 flex items-center justify-between">
-        <h2 class="text-2xl font-bold text-gray-100">Ingredients (Stock)</h2>
+        <h2 class="text-2xl font-bold text-gray-100">المكونات (المخزون)</h2>
         
         <div class="flex gap-4">
-            <input wire:model.live="search" type="text" placeholder="Search ingredients..." 
+            <input wire:model.live="search" type="text" placeholder="بحث في المكونات..." 
                 class="bg-surface border border-[#2A2A2A] rounded-lg px-4 py-2 text-gray-100 focus:border-amber-500 focus:ring-amber-500">
             
             <button onclick="Livewire.dispatchTo('inventory.wastage-form', 'openWastageModal')" class="bg-red-500/20 text-red-400 px-4 py-2 rounded-lg font-semibold hover:bg-red-500/30 transition-colors">
-                Log Wastage
+                تسجيل هالك
             </button>
             <button onclick="Livewire.dispatchTo('inventory.ingredient-form', 'openModal')" class="bg-amber-500 text-black px-4 py-2 rounded-lg font-semibold hover:bg-amber-400 transition-colors">
-                + New Ingredient
+                + مكون جديد
             </button>
         </div>
     </div>
 
     <div class="bg-surface rounded-xl border border-[#2A2A2A] overflow-hidden">
-        <table class="w-full text-left">
+        <table class="w-full text-right">
             <thead class="bg-elevated border-b border-[#2A2A2A]">
                 <tr>
-                    <th class="p-4 text-sm font-semibold text-gray-400">Name</th>
-                    <th class="p-4 text-sm font-semibold text-gray-400">Stock Qty</th>
-                    <th class="p-4 text-sm font-semibold text-gray-400">Min Alert Qty</th>
-                    <th class="p-4 text-sm font-semibold text-gray-400">Cost/Unit</th>
-                    <th class="p-4 text-sm font-semibold text-gray-400">Supplier</th>
-                    <th class="p-4 text-sm font-semibold text-gray-400">Actions</th>
+                    <th class="p-4 text-sm font-semibold text-gray-400">الاسم</th>
+                    <th class="p-4 text-sm font-semibold text-gray-400">الكمية المتاحة</th>
+                    <th class="p-4 text-sm font-semibold text-gray-400">حد التنبيه</th>
+                    <th class="p-4 text-sm font-semibold text-gray-400">التكلفة/الوحدة</th>
+                    <th class="p-4 text-sm font-semibold text-gray-400">المورد</th>
+                    <th class="p-4 text-sm font-semibold text-gray-400">إجراءات</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-[#2A2A2A]">
