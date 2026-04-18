@@ -1,10 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\Login;
-use App\Livewire\Products\ProductList;
-use App\Livewire\Inventory\IngredientList;
 use App\Livewire\Dashboard\Index as Dashboard;
+use App\Livewire\Inventory\IngredientList;
+use App\Livewire\Orders\KitchenDisplay;
+use App\Livewire\Pos\Terminal;
+use App\Livewire\Products\ProductList;
+use App\Livewire\Shifts\ShiftManager;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/login', Login::class)->name('login');
 
@@ -13,6 +16,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', function () {
         auth()->logout();
+
         return redirect()->route('login');
     })->name('logout');
 
@@ -24,7 +28,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/inventory', IngredientList::class)->name('inventory.index');
     });
 
-    Route::get('/pos', function () {
-        return view('layouts.pos');
-    })->name('pos');
+    Route::middleware('permission:access pos')->group(function () {
+        Route::get('/pos', Terminal::class)->name('pos.index');
+        Route::get('/shifts', ShiftManager::class)->name('shifts.index');
+    });
+
+    Route::middleware('permission:view kds')->group(function () {
+        Route::get('/kds', KitchenDisplay::class)->name('kds.index');
+    });
 });
