@@ -19,12 +19,22 @@ class Login extends Component
     {
         $this->validate();
 
+        $throttleKey = strtolower($this->email).'|'.request()->ip();
+
+        if (\Illuminate\Support\Facades\RateLimiter::tooManyAttempts($throttleKey, 5)) {
+            $seconds = \Illuminate\Support\Facades\RateLimiter::availableIn($throttleKey);
+            $this->addError('email', "برجاء المحاولة بعد {$seconds} ثانية.");
+            return;
+        }
+
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password, 'is_active' => 1])) {
+            \Illuminate\Support\Facades\RateLimiter::clear($throttleKey);
             session()->regenerate();
             return redirect()->intended('/');
         }
 
-        $this->addError('email', 'The provided credentials do not match our records or your account is inactive.');
+        \Illuminate\Support\Facades\RateLimiter::hit($throttleKey);
+        $this->addError('email', 'بيانات الدخول غير صحيحة أو الحساب غير نشط.');
     }
 
     public function render()
