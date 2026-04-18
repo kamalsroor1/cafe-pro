@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             CategorySeeder::class,
             ProductSeeder::class,
+            IngredientSeeder::class,
+            RecipeSeeder::class,
         ]);
     }
 }
