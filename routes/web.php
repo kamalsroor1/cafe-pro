@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/orders', OrderList::class)->name('orders.index');
         Route::get('/orders/{order}', OrderDetail::class)->name('orders.show');
+        Route::get('/orders/{order}/receipt', [\App\Http\Controllers\InvoiceController::class, 'download'])->name('orders.receipt');
     });
 
     Route::middleware('permission:view kds')->group(function () {
