@@ -48,6 +48,7 @@
                                 </svg>
                             </button>
 
+                            
                             {{-- Edit Product --}}
                             <button
                                 onclick="Livewire.dispatchTo('products.product-form', 'openModal', { product_id: {{ $product->id }} })"
