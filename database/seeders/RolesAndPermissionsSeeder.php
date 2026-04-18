@@ -3,14 +3,15 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
     public function run(): void
     {
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         $permissions = [
             'view users', 'create users', 'edit users', 'delete users',
@@ -19,8 +20,10 @@ class RolesAndPermissionsSeeder extends Seeder
             'view ingredients', 'manage ingredients',
             'view recipes', 'manage recipes', 'log wastage',
             'open shift', 'close shift', 'view shifts', 'view all shifts',
+            'access pos',
             'create orders', 'view orders', 'update order status', 'cancel orders', 'view all orders',
             'process payments',
+            'view kds',
             'view expenses', 'manage expenses',
             'view reports', 'export reports',
             'manage settings',
@@ -40,8 +43,10 @@ class RolesAndPermissionsSeeder extends Seeder
             'view ingredients', 'manage ingredients',
             'view recipes', 'manage recipes', 'log wastage',
             'open shift', 'close shift', 'view shifts', 'view all shifts',
+            'access pos',
             'create orders', 'view orders', 'update order status', 'cancel orders', 'view all orders',
             'process payments',
+            'view kds',
             'view expenses', 'manage expenses',
             'view reports', 'export reports',
         ]);
@@ -49,6 +54,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $cashier = Role::firstOrCreate(['name' => 'cashier']);
         $cashier->syncPermissions([
             'open shift', 'close shift', 'view shifts',
+            'access pos',
             'create orders', 'view orders', 'update order status', 'cancel orders',
             'process payments',
         ]);
