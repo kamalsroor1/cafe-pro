@@ -14,17 +14,18 @@
 ## 2. Technology Stack
 
 ### Backend
-- **PHP 8.2+** with **Laravel 11**
+- **PHP 8.3+** with **Laravel 12**
 - **MySQL 8.0** — relational database
-- **Laravel Sanctum** — API authentication
+- **Laravel Breeze** (Livewire stack) — authentication scaffolding
 - **Spatie Laravel-Permission** — RBAC (Roles & Permissions)
 - **Laravel Queues** with Redis — background jobs (stock deduction, notifications)
 - **Laravel Telescope** — local debugging (dev only)
 
 ### Frontend
-- **Vue.js 3** with **Inertia.js** (recommended) OR **Livewire 3** (alternative)
-- **Tailwind CSS** — utility-first styling
-- **Pinia** — state management (Vue)
+- **Livewire 3** — full-stack reactive components (no separate JS framework)
+- **Tailwind CSS v3** — dark theme, touch-optimized utility classes
+- **Alpine.js** — lightweight JS for UI-only interactions (dropdowns, menus)
+- **NativePHP / Electron** — optional desktop app wrapper
 
 ### Infrastructure
 - **Laravel Horizon** — queue monitoring
