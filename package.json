@@ -3,10 +3,14 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "dev": "vite",
         "build": "vite build",
-        "dev": "vite"
+        "native:dev": "nativephp-electron-scripts dev",
+        "native:build": "nativephp-electron-scripts build"
     },
     "devDependencies": {
+        "nativephp-electron-scripts": "^0.something",
+        "electron": "^latest",
         "@tailwindcss/forms": "^0.5.11",
         "@tailwindcss/vite": "^4.0.0",
         "alpinejs": "^3.15.11",
