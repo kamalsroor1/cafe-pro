@@ -22,5 +22,8 @@ class WastageLog extends Model
         return $this->belongsTo(User::class, 'recorded_by');
     }
 
-    // shift() relation will be added in Phase 3 when shifts table is created
+    public function shift(): BelongsTo
+    {
+        return $this->belongsTo(Shift::class);
+    }
 }
