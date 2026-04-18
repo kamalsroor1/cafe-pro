@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -84,6 +86,57 @@ class OrderService
 
             return $order;
         });
+    }
+
+    public function addItemsToOrder(Order $order, array $items): void
+    {
+        // Implementation for adding items later
+    }
+
+    public function transitionStatus(Order $order, string $newStatus, User $user): void
+    {
+        $this->validateStatusTransition($order->status->value, $newStatus);
+        $order->update(['status' => $newStatus]);
+    }
+
+    public function cancelOrder(Order $order, string $reason, User $user): void
+    {
+        $order->update([
+            'status' => OrderStatus::Cancelled->value,
+            'notes' => $order->notes."\nCancelled reason: ".$reason,
+        ]);
+        // Also maybe restore stock
+    }
+
+    public function recalculateTotals(Order $order): void
+    {
+        $subtotal = $order->items()->sum('subtotal');
+        // add taxes/discounts logic
+        $order->update([
+            'subtotal' => $subtotal,
+            'total' => $subtotal + $order->tax - $order->discount,
+        ]);
+    }
+
+    public function generateOrderNumber(): string
+    {
+        return 'ORD-'.strtoupper(Str::random(8));
+    }
+
+    public function validateStatusTransition(string $current, string $new): void
+    {
+        // Example logic
+        $validTransitions = [
+            'pending' => ['preparing', 'cancelled'],
+            'preparing' => ['ready', 'cancelled'],
+            'ready' => ['completed'],
+            'completed' => [],
+            'cancelled' => [],
+        ];
+
+        if (! in_array($new, $validTransitions[$current] ?? [])) {
+            throw new \Exception("Invalid status transition from {$current} to {$new}");
+        }
     }
 
     public function updateStatus(Order $order, string $status): Order

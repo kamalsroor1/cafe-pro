@@ -54,4 +54,21 @@ class ShiftService
     {
         return Shift::where('status', 'open')->first();
     }
+
+    public function getActiveShiftForUser(User $user): ?Shift
+    {
+        return Shift::where('started_by', $user->id)
+            ->where('status', 'open')
+            ->first();
+    }
+
+    public function calculateExpectedBalance(Shift $shift): float
+    {
+        $cashSales = $shift->orders()
+            ->where('payment_method', 'cash')
+            ->where('payment_status', 'paid')
+            ->sum('total');
+
+        return $shift->starting_cash + $cashSales;
+    }
 }
