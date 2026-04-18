@@ -4,6 +4,8 @@ use App\Livewire\Auth\Login;
 use App\Livewire\Dashboard\Index as Dashboard;
 use App\Livewire\Inventory\IngredientList;
 use App\Livewire\Orders\KitchenDisplay;
+use App\Livewire\Orders\OrderDetail;
+use App\Livewire\Orders\OrderList;
 use App\Livewire\Pos\Terminal;
 use App\Livewire\Products\ProductList;
 use App\Livewire\Shifts\ShiftManager;
@@ -29,8 +31,13 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('permission:access pos')->group(function () {
-        Route::get('/pos', Terminal::class)->name('pos.index');
+        Route::middleware('shift.open')->group(function () {
+            Route::get('/pos', Terminal::class)->name('pos.index');
+        });
         Route::get('/shifts', ShiftManager::class)->name('shifts.index');
+
+        Route::get('/orders', OrderList::class)->name('orders.index');
+        Route::get('/orders/{order}', OrderDetail::class)->name('orders.show');
     });
 
     Route::middleware('permission:view kds')->group(function () {
