@@ -248,58 +248,59 @@
 ## Phase 5 — UI Polish, Printing & Production
 
 ### 📦 Packages
-- [ ] `composer require barryvdh/laravel-dompdf`
-- [ ] `composer require simplesoftwareio/simple-qrcode`
-- [ ] `composer require maatwebsite/excel`
-- [ ] `composer require mike42/escpos-php` (optional)
+- [x] `composer require barryvdh/laravel-dompdf`
+- [x] `composer require simplesoftwareio/simple-qrcode`
+- [x] `composer require maatwebsite/excel`
+- [x] `composer require mike42/escpos-php` (optional)
 
 ### ⚙️ Services & Controllers
-- [ ] `app/Services/ReceiptService.php` — `buildReceiptData(Order $order): array`
-- [ ] `app/Http/Controllers/InvoiceController.php` — PDF download
+- [x] `app/Services/ReceiptService.php` — `buildReceiptData(Order $order): array`
+- [x] `app/Http/Controllers/InvoiceController.php` — PDF download
 
 ### 🎨 UI Polish Tasks
-- [ ] Add `active:scale-95 transition-transform` to all action buttons
-- [ ] Add `wire:loading` spinner to every form submit / action button
-- [ ] Add Alpine.js toast notification system (success / error)
-- [ ] Add sidebar collapse toggle (icon-only mode)
-- [ ] Make POS layout stack vertically on small screens (< 768px)
-- [ ] Confirm all nav items: min-height 56px
-- [ ] Confirm all POS product cards: min 120×140px
-- [ ] Confirm category tabs: min-height 48px
-- [ ] Confirm PAY button: min-height 64px
+- [x] Add `active:scale-95 transition-transform` to all action buttons
+- [x] Add `wire:loading` spinner to every form submit / action button
+- [x] Add Alpine.js toast notification system (success / error)
+- [x] Add sidebar collapse toggle (icon-only mode)
+- [x] Make POS layout stack vertically on small screens (< 768px)
+- [x] Confirm all nav items: min-height 56px
+- [x] Confirm all POS product cards: min 120×140px
+- [x] Confirm category tabs: min-height 48px
+- [x] Confirm PAY button: min-height 64px
 
 ### 🖨️ Printing
-- [ ] Create receipt Blade view `resources/views/receipts/thermal.blade.php`
-- [ ] Generate PDF receipt on order detail page
-- [ ] Embed QR code (Tax Number + Order Number)
-- [ ] Add "Print Receipt" button on PaymentModal after payment
+- [x] Create receipt Blade view `resources/views/receipts/thermal.blade.php`
+- [x] Generate PDF receipt on order detail page
+- [x] Embed QR code (Tax Number + Order Number)
+- [x] Add "Print Receipt" button on PaymentModal after payment
 
 ### 📊 Exports
-- [ ] Add Excel export to ProfitReport component
-- [ ] Add Excel export to ShiftReport component
+- [x] Add Excel export to ProfitReport component
+- [x] Add Excel export to ShiftReport component
 
 ### 🔒 Security & Performance
-- [ ] Add database indexes (see `database-schema.md` → Key Indexes)
-- [ ] Rate-limit login route
-- [ ] Review all Livewire components for N+1 queries (use `->with()` eager loading)
-- [ ] Test all `@can` / `@role` Blade guards
+- [x] Add database indexes (see `database-schema.md` → Key Indexes)
+- [x] Rate-limit login route
+- [x] Review all Livewire components for N+1 queries (use `->with()` eager loading)
+- [x] Test all `@can` / `@role` Blade guards
 
 ### ✅ Phase 5 Done When
-- [ ] PDF receipt downloads correctly
-- [ ] QR code visible in receipt
-- [ ] Excel export works for reports
-- [ ] All touch targets ≥ 48px on POS screen
-- [ ] Tap feedback animation on all buttons
-- [ ] Toast shows on order complete / payment success
-- [ ] App tested on touch screen device
+- [x] PDF receipt downloads correctly
+- [x] QR code visible in receipt
+- [x] Excel export works for reports
+- [x] All touch targets ≥ 48px on POS screen
+- [x] Tap feedback animation on all buttons
+- [x] Toast shows on order complete / payment success
+- [x] App tested on touch screen device
 
 ---
 
 ## Global Checks (All Phases)
 
-- [ ] All models with financial data use `SoftDeletes`
-- [ ] All business logic is in `app/Services/` — NOT in Livewire components
-- [ ] All Blade guards (`@can`, `@role`) tested per role
-- [ ] `wire:loading` added to every async action
-- [ ] Dark theme consistent across all pages
-- [ ] No `console.log` or debug output left in production
+- [x] All models with financial data use `SoftDeletes`
+- [x] All business logic is in `app/Services/` — NOT in Livewire components
+- [x] All Blade guards (`@can`, `@role`) tested per role
+- [x] `wire:loading` added to every async action
+- [x] Dark theme consistent across all pages
+- [x] No `console.log` or debug output left in production
+
