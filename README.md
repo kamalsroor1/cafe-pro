@@ -1,130 +1,75 @@
-# ☕ Cafe-Pro
+# ☕ Cafe Pro ERP — AI Build Documentation
 
-> نظام نقطة بيع (POS) للمقاهي • مبني بـ Laravel 13 + NativePHP + Livewire 3
-
-![Laravel](https://img.shields.io/badge/Laravel-13-red?style=flat-square)
-![NativePHP](https://img.shields.io/badge/NativePHP-Desktop-blue?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-![Status](https://img.shields.io/badge/Status-Alpha_v1.0-orange?style=flat-square)
+Welcome to the complete technical documentation for **Cafe Pro ERP** — a niche ERP/POS system for Cafe & Restaurant management.
 
 ---
 
-## 📖 نبذة عن المشروع
+## 📁 Documentation Structure
 
-Cafe-Pro هو تطبيق ديسكتوب متكامل لإدارة المقاهي الصغيرة والمتوسطة. يعمل بدون إنترنت بالكامل باستخدام SQLite، ويدعم اللغة العربية بشكل أصلي. صُمِّم ليكون سريعاً وخفيفاً وسهل التركيب عند العميل.
-
----
-
-## ⚙️ المتطلبات
-
-| الأداة | الإصدار المطلوب |
-| :--- | :--- |
-| PHP | 8.4+ |
-| Node.js | 20+ |
-| Composer | 2.x |
-| OS | Windows / Linux |
-
----
-
-## 🚀 خطوات التشغيل
-
-**1. استنساخ المشروع وتثبيت التبعيات:**
-
-```bash
-git clone https://github.com/your-username/cafe-pro.git
-cd cafe-pro
-composer install
-npm install
 ```
-
-**2. إعداد ملف البيئة وقاعدة البيانات:**
-
-```bash
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
-php artisan db:seed  # لإضافة بيانات المنيو التجريبية
-```
-
-**3. تشغيل الـ Assets (في تيرمينال منفصل):**
-
-```bash
-npm run dev
-```
-
-**4. تشغيل التطبيق:**
-
-```bash
-php artisan native:serve
+cafe-pro-docs/
+├── README.md                        ← You are here
+│
+├── 01-overview/
+│   ├── project-overview.md          ← Project goals, stack, and scope
+│   └── development-roadmap.md       ← Phase-by-phase build plan
+│
+├── 02-database/
+│   ├── database-schema.md           ← Full schema with all tables & columns
+│   ├── migrations-guide.md          ← Migration order & conventions
+│   └── relationships-map.md         ← Entity relationship overview
+│
+├── 03-modules/
+│   ├── 01-auth-rbac.md              ← Auth, Roles & Permissions module
+│   ├── 02-categories-products.md    ← Menu, Categories & Products module
+│   ├── 03-inventory-recipes.md      ← Ingredients, BOM & Stock module
+│   ├── 04-pos-orders.md             ← POS Interface & Order Lifecycle
+│   ├── 05-shift-management.md       ← Shift open/close cycle
+│   ├── 06-expenses-financials.md    ← Expenses, COGS & Net Profit
+│   └── 07-invoicing-printing.md     ← Receipts, Thermal Print & QR
+│
+├── 04-business-logic/
+│   ├── service-layer.md             ← All Service classes & their methods
+│   ├── stock-deduction-logic.md     ← Auto stock deduction on order complete
+│   ├── shift-lock-logic.md          ← Shift-gated transaction rules
+│   └── profit-calculation.md        ← Net Profit formula & COGS logic
+│
+├── 05-api/
+│   ├── api-conventions.md           ← REST conventions, auth headers, errors
+│   └── endpoints-reference.md       ← All API routes by module
+│
+├── 06-frontend/
+│   ├── frontend-overview.md         ← Vue.js / Livewire structure
+│   └── pos-ui-spec.md               ← POS screen layout & interactions
+│
+└── 07-deployment/
+    ├── environment-setup.md         ← .env config, packages, seeder
+    └── testing-guide.md             ← Feature tests per module
 ```
 
 ---
 
-## 📦 بناء النسخة النهائية
+## 🚀 Quick Start for AI Code Generation
 
-لإنشاء ملف تنفيذي جاهز للتركيب عند العميل (`.exe` / `.AppImage`):
+When using this documentation to generate code, follow this order:
 
-```bash
-php artisan native:build
-```
-
----
-
-## 📂 هيكلة المشروع
-
-```
-cafe-pro/
- ├── app/
- │   ├── Livewire/                          # منطق شاشة POS
- │   └── Providers/
- │       └── NativeAppServiceProvider.php   # إعدادات نافذة الديسكتوب
- ├── resources/views/livewire/              # ملفات Blade للواجهة
- ├── database/
- │   └── database.sqlite                    # مستبعدة من Git
- ├── .env.example
- └── README.md
-```
+1. Start with `01-overview/project-overview.md` for stack context
+2. Read `02-database/database-schema.md` before writing any migrations
+3. Follow `02-database/migrations-guide.md` for migration run order
+4. Use each file in `03-modules/` as a self-contained spec per module
+5. Reference `04-business-logic/service-layer.md` before writing controllers
+6. Use `05-api/endpoints-reference.md` for route definitions
 
 ---
 
-## 🗺️ خارطة الطريق (Roadmap)
+## ⚙️ Tech Stack Summary
 
-### الربع الحالي (Q2 2026)
-- [ ] **ربط الطابعات:** دعم بروتوكول ESC/POS للطباعة الحرارية
-- [ ] **إدارة المخزن:** تنبيه عند نقص المواد الخام
-- [ ] **نظام الورديات:** فتح وإغلاق الكاشير لكل موظف
-
-### الربع القادم (Q3 2026)
-- [ ] **التقارير المتقدمة:** رسوم بيانية للمبيعات الأسبوعية والشهرية
-- [ ] **دعم الـ QR Code:** للدفع الإلكتروني السريع
-- [ ] **تعدد اللغات:** واجهة كاملة باللغة الإنجليزية
-
----
-
-## 🤝 المساهمة
-
-- اتبع نمط **Conventional Commits** مثل: `feat: add printing`, `fix: total bug`
-- شغّل الاختبارات قبل أي Pull Request: `php artisan test`
-- يُمنع رفع `.env` أو `database.sqlite` للمستودع
-
----
-
-## 🛡️ الأمان
-
-للإبلاغ عن ثغرة أمنية، يرجى مراجعة ملف [SECURITY.md](SECURITY.md) بدلاً من فتح Issue عام.
-
----
-
-## 📝 سجل التغييرات
-
-### [1.0.0] - 2026-04-18
-- إعداد هيكل المشروع باستخدام Laravel 13 و NativePHP
-- إنشاء واجهة POS تدعم اللمس باستخدام Livewire
-- إعداد نظام SQLite للعمل بدون إنترنت
-- تخصيص `NativeAppServiceProvider` لفتح النافذة بوضع Maximized
-
----
-
-## 📄 الرخصة
-
-مرخّص بموجب [MIT License](LICENSE) — © 2026 Cafe-Pro Team
+| Layer | Technology |
+|---|---|
+| Backend | PHP 8.2, Laravel 11 |
+| Database | MySQL 8.0 |
+| Frontend | Vue.js 3 + Inertia.js (or Livewire 3) |
+| Auth | Laravel Sanctum + Spatie Permission |
+| Queue | Laravel Queues (Redis) |
+| Printing | Laravel PDF / Raw Thermal ESC/POS |
+| Testing | PHPUnit / Pest |
