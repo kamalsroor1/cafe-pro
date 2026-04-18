@@ -141,59 +141,59 @@
 ## Phase 3 — POS & Order Lifecycle
 
 ### 🗄️ Migrations
-- [ ] Create `create_tables_table` migration (restaurant tables)
-- [ ] Create `create_shifts_table` migration
-- [ ] Create `create_orders_table` migration
-- [ ] Create `create_order_items_table` migration
-- [ ] Create `create_order_item_addons_table` migration
-- [ ] Create `create_payments_table` migration
-- [ ] Run `php artisan migrate`
+- [x] Create `create_tables_table` migration (restaurant tables)
+- [x] Create `create_shifts_table` migration
+- [x] Create `create_orders_table` migration
+- [x] Create `create_order_items_table` migration
+- [x] Create `create_order_item_addons_table` migration
+- [x] Create `create_payments_table` migration
+- [x] Run `php artisan migrate`
 
 ### 🧩 Enums
-- [ ] `app/Enums/OrderStatus.php` — pending, preparing, ready, completed, cancelled
-- [ ] `app/Enums/PaymentMethod.php` — cash, card, split
-- [ ] `app/Enums/OrderType.php` — dine_in, takeaway, delivery
+- [x] `app/Enums/OrderStatus.php` — pending, preparing, ready, completed, cancelled
+- [x] `app/Enums/PaymentMethod.php` — cash, card, split
+- [x] `app/Enums/OrderType.php` — dine_in, takeaway, delivery
 
 ### 🧩 Models
-- [ ] `app/Models/Shift.php` — `orders()`, `user()`, scope `open()`
-- [ ] `app/Models/Order.php` — `SoftDeletes`, `items()`, `payments()`, `table()`, `shift()`
-- [ ] `app/Models/OrderItem.php` — `addons()`, `product()`
-- [ ] `app/Models/OrderItemAddon.php`
-- [ ] `app/Models/Payment.php` — `order()`
-- [ ] `app/Models/RestaurantTable.php`
+- [x] `app/Models/Shift.php` — `orders()`, `user()`, scope `open()`
+- [x] `app/Models/Order.php` — `SoftDeletes`, `items()`, `payments()`, `table()`, `shift()`
+- [x] `app/Models/OrderItem.php` — `addons()`, `product()`
+- [x] `app/Models/OrderItemAddon.php`
+- [x] `app/Models/Payment.php` — `order()`
+- [x] `app/Models/RestaurantTable.php`
 
 ### ⚙️ Services
-- [ ] `app/Services/ShiftService.php`
-  - [ ] `openShift(User $user, float $openingBalance): Shift`
-  - [ ] `closeShift(Shift $shift, float $closingBalance, ?string $notes): Shift`
-  - [ ] `getActiveShiftForUser(User $user): ?Shift`
-  - [ ] `calculateExpectedBalance(Shift $shift): float`
-- [ ] `app/Services/OrderService.php`
-  - [ ] `createOrder(array $data, Shift $shift, User $user): Order`
-  - [ ] `addItemsToOrder(Order $order, array $items): void`
-  - [ ] `transitionStatus(Order $order, string $newStatus, User $user): void`
-  - [ ] `cancelOrder(Order $order, string $reason, User $user): void`
-  - [ ] `recalculateTotals(Order $order): void`
-  - [ ] `generateOrderNumber(): string`
-  - [ ] `validateStatusTransition(string $current, string $new): void`
-- [ ] `app/Services/PaymentService.php`
-  - [ ] `recordPayment(Order $order, array $data): Payment`
-  - [ ] `calculateChange(float $total, float $paid): float`
+- [x] `app/Services/ShiftService.php`
+  - [x] `openShift(User $user, float $openingBalance): Shift`
+  - [x] `closeShift(Shift $shift, float $closingBalance, ?string $notes): Shift`
+  - [x] `getActiveShiftForUser(User $user): ?Shift`
+  - [x] `calculateExpectedBalance(Shift $shift): float`
+- [x] `app/Services/OrderService.php`
+  - [x] `createOrder(array $data, Shift $shift, User $user): Order`
+  - [x] `addItemsToOrder(Order $order, array $items): void`
+  - [x] `transitionStatus(Order $order, string $newStatus, User $user): void`
+  - [x] `cancelOrder(Order $order, string $reason, User $user): void`
+  - [x] `recalculateTotals(Order $order): void`
+  - [x] `generateOrderNumber(): string`
+  - [x] `validateStatusTransition(string $current, string $new): void`
+- [x] `app/Services/PaymentService.php`
+  - [x] `recordPayment(Order $order, array $data): Payment`
+  - [x] `calculateChange(float $total, float $paid): float`
 
 ### 🛡️ Middleware
-- [ ] `app/Http/Middleware/EnsureShiftIsOpen.php`
-- [ ] Register middleware alias `shift.open` in `bootstrap/app.php`
+- [x] `app/Http/Middleware/EnsureShiftIsOpen.php`
+- [x] Register middleware alias `shift.open` in `bootstrap/app.php`
 
 ### 🌱 Seeders
-- [ ] `database/seeders/TableSeeder.php` (T1–T20)
+- [x] `database/seeders/TableSeeder.php` (T1–T20)
 
 ### 🔥 Livewire Components
-- [ ] `app/Livewire/Shifts/OpenShift.php` + view (touch-friendly big button)
-- [ ] `app/Livewire/Shifts/CloseShift.php` + view (expected vs actual)
-- [ ] `app/Livewire/Pos/PosTerminal.php` + view (full-screen master)
-- [ ] `app/Livewire/Pos/ProductGrid.php` + view (category tabs + cards min 140px)
-- [ ] `app/Livewire/Pos/OrderCart.php` + view (live cart + totals)
-- [ ] `app/Livewire/Pos/PaymentModal.php` + view (cash/card/split + change)
+- [x] `app/Livewire/Shifts/OpenShift.php` + view (Implemented in ShiftManager)
+- [x] `app/Livewire/Shifts/CloseShift.php` + view (Implemented in ShiftManager)
+- [x] `app/Livewire/Pos/PosTerminal.php` + view (Implemented in Terminal)
+- [x] `app/Livewire/Pos/ProductGrid.php` + view (Implemented in Terminal)
+- [x] `app/Livewire/Pos/OrderCart.php` + view (Implemented in Terminal)
+- [x] `app/Livewire/Pos/PaymentModal.php` + view (Implemented in Terminal)
 - [ ] `app/Livewire/Orders/OrderList.php` + view (filters: status, date)
 - [ ] `app/Livewire/Orders/OrderDetail.php` + view
 
