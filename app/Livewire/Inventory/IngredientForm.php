@@ -71,6 +71,7 @@ class IngredientForm extends Component
 
         $this->closeModal();
         $this->dispatch('ingredientSaved');
+        $this->dispatch('toast-message', message: 'تم حفظ المكون بنجاح', type: 'success');
     }
 
     public function render()

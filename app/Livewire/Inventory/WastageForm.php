@@ -61,6 +61,7 @@ class WastageForm extends Component
 
         $this->closeModal();
         $this->dispatch('ingredientSaved'); // refresh ingredient list
+        $this->dispatch('toast-message', message: 'تم تسجيل الهالك بنجاح', type: 'success');
     }
 
     public function render()

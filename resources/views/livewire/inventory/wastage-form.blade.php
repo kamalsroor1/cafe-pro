@@ -43,7 +43,7 @@
                     <button type="button" wire:click="closeModal" class="px-4 py-2 rounded-xl text-gray-400 hover:text-gray-100 hover:bg-elevated transition-colors">
                         إلغاء
                     </button>
-                    <button type="submit" class="px-6 py-2 rounded-xl bg-red-500 text-white font-bold hover:bg-red-600 transition-colors flex items-center">
+                    <button type="submit" class="px-6 py-2 rounded-xl bg-red-500 text-white font-bold hover:bg-red-600 transition-colors flex items-center gap-2 active:scale-95 transition-transform">
                         <span wire:loading.remove>تسجيل الهالك</span>
                         <span wire:loading>جاري التسجيل...</span>
                     </button>
