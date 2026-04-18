@@ -1,6 +1,6 @@
-<div class="flex h-screen bg-base overflow-hidden">
+<div class="flex flex-col md:flex-row h-screen bg-base overflow-hidden">
     {{-- Left Side: Categories & Products --}}
-    <div class="flex-1 flex flex-col h-full border-r border-[#2A2A2A]">
+    <div class="flex-1 flex flex-col h-1/2 md:h-full border-b md:border-b-0 md:border-l border-[#2A2A2A]">
         {{-- Header --}}
         <header class="h-16 bg-surface border-b border-[#2A2A2A] flex items-center justify-between px-6 shrink-0">
             <div class="flex items-center gap-4">
@@ -38,8 +38,8 @@
         </div>
 
         {{-- Products Grid --}}
-        <div class="flex-1 overflow-y-auto p-6 bg-base">
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div class="flex-1 overflow-y-auto p-4 md:p-6 bg-base">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
                 @foreach($products as $product)
                 <button wire:click="addToCart({{ $product->id }})" 
                     class="bg-surface border border-[#2A2A2A] rounded-2xl p-4 flex flex-col items-center justify-center min-h-[140px] text-center hover:border-amber-500 hover:shadow-lg hover:shadow-amber-500/10 transition-all duration-200 active:scale-95 group">
@@ -57,7 +57,7 @@
     </div>
 
     {{-- Right Side: Cart --}}
-    <div class="w-96 bg-surface flex flex-col h-full border-l border-[#2A2A2A] shrink-0">
+    <div class="w-full md:w-96 bg-surface flex flex-col h-1/2 md:h-full shrink-0">
         {{-- Order Types --}}
         <div class="p-4 border-b border-[#2A2A2A] grid grid-cols-3 gap-2 shrink-0">
             <button wire:click="$set('orderType', 'dine_in')" class="py-2 px-1 text-sm font-semibold rounded-lg border {{ $orderType === 'dine_in' ? 'bg-amber-500/20 border-amber-500 text-amber-400' : 'border-[#2A2A2A] text-gray-400 hover:text-gray-200' }}">
@@ -152,4 +152,29 @@
             </button>
         </div>
     </div>
+
+    {{-- Payment Success & Receipt Modal --}}
+    @if($lastOrder)
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="bg-surface border border-[#2A2A2A] rounded-2xl w-full max-w-md p-8 shadow-2xl text-center">
+            <div class="w-20 h-20 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            
+            <h3 class="text-2xl font-bold text-gray-100 mb-2">تم الدفع بنجاح!</h3>
+            <p class="text-gray-400 mb-6">الطلب رقم: #{{ $lastOrder->order_number ?? $lastOrder->id }}</p>
+            
+            <div class="flex flex-col gap-3">
+                <a href="{{ route('orders.receipt', $lastOrder) }}" target="_blank" class="w-full py-3 rounded-xl bg-amber-500 text-black font-bold hover:bg-amber-400 transition-colors flex justify-center items-center gap-2 active:scale-95 transition-transform">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2-2v4h10z"></path></svg>
+                    طباعة الفاتورة
+                </a>
+                
+                <button wire:click="closeReceiptModal" class="w-full py-3 rounded-xl bg-elevated border border-[#2A2A2A] text-gray-100 font-bold hover:bg-surface transition-colors active:scale-95 transition-transform">
+                    طلب جديد
+                </button>
+            </div>
+        </div>
+    </div>
+    @endif
 </div>

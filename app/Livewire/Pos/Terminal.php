@@ -30,6 +30,8 @@ class Terminal extends Component
 
     public $activeShift = null;
 
+    public $lastOrder = null;
+
     public function mount(ShiftService $shiftService)
     {
         $this->activeShift = $shiftService->getCurrentShift();
@@ -123,7 +125,7 @@ class Terminal extends Component
         }
 
         try {
-            $orderService->createOrder([
+            $order = $orderService->createOrder([
                 'type' => $this->orderType,
                 'subtotal' => $this->subtotal,
                 'tax' => $this->tax,
@@ -133,13 +135,21 @@ class Terminal extends Component
                 'items' => $this->cart,
             ]);
 
+            $this->lastOrder = $order;
             $this->cart = [];
             $this->calculateTotals();
-            session()->flash('success', 'Order completed successfully!');
+            
+            $this->dispatch('toast-message', message: 'تم الدفع وإنهاء الطلب بنجاح', type: 'success');
 
         } catch (\Exception $e) {
             $this->addError('checkout', $e->getMessage());
+            $this->dispatch('toast-message', message: $e->getMessage(), type: 'error');
         }
+    }
+
+    public function closeReceiptModal()
+    {
+        $this->lastOrder = null;
     }
 
     public function render()
