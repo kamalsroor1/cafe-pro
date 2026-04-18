@@ -2,12 +2,15 @@
 
 use App\Livewire\Auth\Login;
 use App\Livewire\Dashboard\Index as Dashboard;
+use App\Livewire\Expenses\ExpenseList;
 use App\Livewire\Inventory\IngredientList;
 use App\Livewire\Orders\KitchenDisplay;
 use App\Livewire\Orders\OrderDetail;
 use App\Livewire\Orders\OrderList;
 use App\Livewire\Pos\Terminal;
 use App\Livewire\Products\ProductList;
+use App\Livewire\Reports\ProfitReport;
+use App\Livewire\Reports\ShiftReport;
 use App\Livewire\Shifts\ShiftManager;
 use Illuminate\Support\Facades\Route;
 
@@ -42,5 +45,14 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('permission:view kds')->group(function () {
         Route::get('/kds', KitchenDisplay::class)->name('kds.index');
+    });
+
+    Route::middleware('permission:manage expenses')->group(function () {
+        Route::get('/expenses', ExpenseList::class)->name('expenses.index');
+    });
+
+    Route::middleware('permission:view reports')->group(function () {
+        Route::get('/reports/profit', ProfitReport::class)->name('reports.profit');
+        Route::get('/reports/shifts', ShiftReport::class)->name('reports.shifts');
     });
 });
