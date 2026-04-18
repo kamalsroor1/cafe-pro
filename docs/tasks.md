@@ -105,36 +105,36 @@
 ## Phase 2 — Inventory & Recipe Engine
 
 ### 🗄️ Migrations
-- [ ] Create `create_ingredients_table` migration
-- [ ] Create `create_product_ingredient_table` migration (BOM pivot)
-- [ ] Create `create_wastage_logs_table` migration
-- [ ] Run `php artisan migrate`
+- [x] Create `create_ingredients_table` migration
+- [x] Create `create_product_ingredient_table` migration (BOM pivot)
+- [x] Create `create_wastage_logs_table` migration
+- [x] Run `php artisan migrate`
 
 ### 🧩 Models
-- [ ] `app/Models/Ingredient.php` — `SoftDeletes`, `recipes()`, `wastages()`
-- [ ] `app/Models/WastageLog.php` — `ingredient()`, `shift()`, `recordedBy()`
+- [x] `app/Models/Ingredient.php` — `SoftDeletes`, `recipes()`, `wastages()`
+- [x] `app/Models/WastageLog.php` — `ingredient()`, `shift()`, `recordedBy()`
 
 ### ⚙️ Services
-- [ ] `app/Services/StockService.php`
-  - [ ] `deductForOrder(Order $order)`
-  - [ ] `checkStockForOrder(Order $order): array` — returns shortages
-  - [ ] `logWastage(array $data): WastageLog`
+- [x] `app/Services/StockService.php`
+  - [x] `deductForOrder(Order $order)`
+  - [x] `checkStockForOrder(Order $order): array` — returns shortages
+  - [x] `logWastage(array $data): WastageLog`
 
 ### 🌱 Seeders
-- [ ] `database/seeders/IngredientSeeder.php`
-- [ ] `database/seeders/RecipeSeeder.php`
+- [x] `database/seeders/IngredientSeeder.php`
+- [x] `database/seeders/RecipeSeeder.php`
 
 ### 🔥 Livewire Components
-- [ ] `app/Livewire/Inventory/IngredientList.php` + view
-- [ ] `app/Livewire/Inventory/IngredientForm.php` + view (modal)
-- [ ] `app/Livewire/Inventory/RecipeEditor.php` + view
-- [ ] `app/Livewire/Inventory/WastageForm.php` + view
+- [x] `app/Livewire/Inventory/IngredientList.php` + view
+- [x] `app/Livewire/Inventory/IngredientForm.php` + view (modal)
+- [x] `app/Livewire/Inventory/RecipeEditor.php` + view
+- [x] `app/Livewire/Inventory/WastageForm.php` + view
 
 ### ✅ Phase 2 Done When
-- [ ] Ingredient CRUD works
-- [ ] Recipe editor can attach ingredients with qty to a product
-- [ ] `StockService::deductForOrder()` tested manually
-- [ ] Low-stock badge shows red when stock < min_stock_qty
+- [x] Admin can add "Coffee Beans" to inventory
+- [x] Admin can set "Latte" recipe = 18g Beans + 200ml Milk
+- [x] Wastage form successfully deducts stock
+- [x] Inventory table shows Red text when `stock_qty` <= `min_stock_qty`
 
 ---
 
