@@ -37,4 +37,9 @@ class Shift extends Model
     {
         return $this->hasMany(WastageLog::class);
     }
+
+    public function scopeOpen($query)
+    {
+        return $query->where('status', 'open');
+    }
 }
