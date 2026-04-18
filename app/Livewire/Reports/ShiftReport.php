@@ -21,6 +21,31 @@ class ShiftReport extends Component
         $this->dateTo = now()->toDateString();
     }
 
+    public function export(ReportService $reportService)
+    {
+        $query = Shift::with('user')->latest();
+
+        if ($this->dateFrom) {
+            $query->whereDate('started_at', '>=', $this->dateFrom);
+        }
+
+        if ($this->dateTo) {
+            $query->whereDate('started_at', '<=', $this->dateTo);
+        }
+
+        $shifts = $query->get();
+        $summaries = [];
+
+        foreach ($shifts as $shift) {
+            $summaries[$shift->id] = $reportService->getShiftSummary($shift);
+        }
+
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \App\Exports\ShiftReportExport($shifts, $summaries),
+            'shift-report-' . now()->format('Y-m-d') . '.xlsx'
+        );
+    }
+
     public function render(ReportService $reportService)
     {
         $query = Shift::with('user')->latest();

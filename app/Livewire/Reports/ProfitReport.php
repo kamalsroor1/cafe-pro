@@ -18,6 +18,25 @@ class ProfitReport extends Component
         $this->dateTo = now()->toDateString();
     }
 
+    public function export(ReportService $reportService)
+    {
+        $from = Carbon::parse($this->dateFrom)->startOfDay();
+        $to = Carbon::parse($this->dateTo)->endOfDay();
+
+        $days = [];
+        $current = $from->copy();
+
+        while ($current <= $to) {
+            $days[] = $reportService->getDailySummary($current);
+            $current->addDay();
+        }
+
+        return \Maatwebsite\Excel\Facades\Excel::download(
+            new \App\Exports\ProfitReportExport(array_reverse($days)),
+            'profit-report-' . now()->format('Y-m-d') . '.xlsx'
+        );
+    }
+
     public function render(ReportService $reportService)
     {
         $from = Carbon::parse($this->dateFrom)->startOfDay();
