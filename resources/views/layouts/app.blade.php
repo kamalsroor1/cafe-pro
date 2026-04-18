@@ -19,5 +19,7 @@
             {{ $slot }}
         </main>
     </div>
+
+    @include('components.toast')
 </body>
 </html>

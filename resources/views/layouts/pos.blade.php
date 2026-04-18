@@ -11,5 +11,6 @@
 </head>
 <body class="bg-base text-gray-100 font-sans h-screen overflow-hidden antialiased">
     {{ $slot }}
+    @include('components.toast')
 </body>
 </html>
