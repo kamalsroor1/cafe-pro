@@ -209,39 +209,39 @@
 ## Phase 4 — Financials & Reporting
 
 ### 🗄️ Migrations
-- [ ] Create `create_expense_categories_table` migration
-- [ ] Create `create_expenses_table` migration
-- [ ] Run `php artisan migrate`
+- [x] Create `create_expense_categories_table` migration
+- [x] Create `create_expenses_table` migration
+- [x] Run `php artisan migrate`
 
 ### 🧩 Models
-- [ ] `app/Models/ExpenseCategory.php` — `expenses()`
-- [ ] `app/Models/Expense.php` — `category()`, `shift()`, `recordedBy()`
+- [x] `app/Models/ExpenseCategory.php` — `expenses()`
+- [x] `app/Models/Expense.php` — `category()`, `shift()`, `recordedBy()`
 
 ### ⚙️ Services
-- [ ] `app/Services/ProfitService.php`
-  - [ ] `calculateNetProfit(Carbon $from, Carbon $to): float`
-  - [ ] `calculateCOGS(Carbon $from, Carbon $to): float`
-  - [ ] `getSalesTotal(Carbon $from, Carbon $to): float`
-  - [ ] `getExpensesTotal(Carbon $from, Carbon $to): float`
-- [ ] `app/Services/ReportService.php`
-  - [ ] `getDailySummary(Carbon $date): array`
-  - [ ] `getShiftSummary(Shift $shift): array`
+- [x] `app/Services/ProfitService.php`
+  - [x] `calculateNetProfit(Carbon $from, Carbon $to): float`
+  - [x] `calculateCOGS(Carbon $from, Carbon $to): float`
+  - [x] `getSalesTotal(Carbon $from, Carbon $to): float`
+  - [x] `getExpensesTotal(Carbon $from, Carbon $to): float`
+- [x] `app/Services/ReportService.php`
+  - [x] `getDailySummary(Carbon $date): array`
+  - [x] `getShiftSummary(Shift $shift): array`
 
 ### 🌱 Seeders
-- [ ] `database/seeders/ExpenseCategorySeeder.php`
+- [x] `database/seeders/ExpenseCategorySeeder.php`
 
 ### 🔥 Livewire Components
-- [ ] `app/Livewire/Expenses/ExpenseList.php` + view
-- [ ] `app/Livewire/Expenses/ExpenseForm.php` + view (modal)
-- [ ] `app/Livewire/Dashboard/Index.php` + view (4 KPI stat cards)
-- [ ] `app/Livewire/Reports/ProfitReport.php` + view (date range filter)
-- [ ] `app/Livewire/Reports/ShiftReport.php` + view
+- [x] `app/Livewire/Expenses/ExpenseList.php` + view
+- [x] `app/Livewire/Expenses/ExpenseForm.php` + view (modal)
+- [x] `app/Livewire/Dashboard/Index.php` + view (4 KPI stat cards)
+- [x] `app/Livewire/Reports/ProfitReport.php` + view (date range filter)
+- [x] `app/Livewire/Reports/ShiftReport.php` + view
 
 ### ✅ Phase 4 Done When
-- [ ] Expense CRUD works (Manager/Admin only)
-- [ ] Dashboard shows: Sales, COGS, Expenses, Net Profit
-- [ ] Profit report filters by date range correctly
-- [ ] Net Profit formula: Sales − COGS − Expenses − Wastage
+- [x] Expense CRUD works (Manager/Admin only)
+- [x] Dashboard shows: Sales, COGS, Expenses, Net Profit
+- [x] Profit report filters by date range correctly
+- [x] Net Profit formula: Sales − COGS − Expenses − Wastage
 
 ---
 
