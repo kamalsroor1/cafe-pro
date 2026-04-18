@@ -7,17 +7,17 @@
                 <a href="/" class="text-gray-400 hover:text-amber-500 transition-colors">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 </a>
-                <h1 class="text-xl font-bold text-gray-100">POS Terminal</h1>
+                <h1 class="text-xl font-bold text-gray-100">نقطة البيع</h1>
             </div>
             
             <div class="flex gap-2">
                 @if(!$activeShift)
                 <span class="px-3 py-1 rounded bg-red-500/20 text-red-400 text-sm font-medium border border-red-500/30">
-                    No Active Shift
+                    لا يوجد شفت مفتوح
                 </span>
                 @else
                 <span class="px-3 py-1 rounded bg-emerald-500/20 text-emerald-400 text-sm font-medium border border-emerald-500/30">
-                    Shift Open
+                    الشفت مفتوح
                 </span>
                 @endif
             </div>
@@ -26,12 +26,12 @@
         {{-- Categories --}}
         <div class="p-4 border-b border-[#2A2A2A] overflow-x-auto whitespace-nowrap shrink-0 hide-scrollbar">
             <button wire:click="selectCategory(null)" 
-                class="px-6 py-3 min-h-[48px] rounded-xl font-semibold mr-2 transition-all duration-200 {{ is_null($selectedCategory) ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'bg-surface text-gray-400 border border-[#2A2A2A] hover:text-gray-100 hover:border-gray-500' }}">
-                All
+                class="px-6 py-3 min-h-[48px] rounded-xl font-semibold ml-2 transition-all duration-200 {{ is_null($selectedCategory) ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'bg-surface text-gray-400 border border-[#2A2A2A] hover:text-gray-100 hover:border-gray-500' }}">
+                الكل
             </button>
             @foreach($categories as $category)
             <button wire:click="selectCategory({{ $category->id }})" 
-                class="px-6 py-3 min-h-[48px] rounded-xl font-semibold mr-2 transition-all duration-200 {{ $selectedCategory == $category->id ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'bg-surface text-gray-400 border border-[#2A2A2A] hover:text-gray-100 hover:border-gray-500' }}">
+                class="px-6 py-3 min-h-[48px] rounded-xl font-semibold ml-2 transition-all duration-200 {{ $selectedCategory == $category->id ? 'bg-amber-500 text-black shadow-lg shadow-amber-500/20' : 'bg-surface text-gray-400 border border-[#2A2A2A] hover:text-gray-100 hover:border-gray-500' }}">
                 {{ $category->name }}
             </button>
             @endforeach
@@ -50,7 +50,7 @@
             </div>
             @if(count($products) === 0)
                 <div class="h-full flex items-center justify-center text-gray-500">
-                    No products found in this category.
+                    لا توجد منتجات في هذا التصنيف.
                 </div>
             @endif
         </div>
@@ -61,13 +61,13 @@
         {{-- Order Types --}}
         <div class="p-4 border-b border-[#2A2A2A] grid grid-cols-3 gap-2 shrink-0">
             <button wire:click="$set('orderType', 'dine_in')" class="py-2 px-1 text-sm font-semibold rounded-lg border {{ $orderType === 'dine_in' ? 'bg-amber-500/20 border-amber-500 text-amber-400' : 'border-[#2A2A2A] text-gray-400 hover:text-gray-200' }}">
-                Dine In
+                محلي
             </button>
             <button wire:click="$set('orderType', 'takeaway')" class="py-2 px-1 text-sm font-semibold rounded-lg border {{ $orderType === 'takeaway' ? 'bg-amber-500/20 border-amber-500 text-amber-400' : 'border-[#2A2A2A] text-gray-400 hover:text-gray-200' }}">
-                Takeaway
+                سفري
             </button>
             <button wire:click="$set('orderType', 'delivery')" class="py-2 px-1 text-sm font-semibold rounded-lg border {{ $orderType === 'delivery' ? 'bg-amber-500/20 border-amber-500 text-amber-400' : 'border-[#2A2A2A] text-gray-400 hover:text-gray-200' }}">
-                Delivery
+                توصيل
             </button>
         </div>
 
@@ -94,7 +94,7 @@
             @if(empty($cart))
                 <div class="h-full flex items-center justify-center text-gray-500 flex-col gap-2">
                     <svg class="w-12 h-12 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                    <span>Cart is empty</span>
+                    <span>السلة فارغة</span>
                 </div>
             @else
                 @foreach($cart as $index => $item)
@@ -124,31 +124,31 @@
         <div class="bg-elevated p-6 rounded-t-3xl border-t border-[#2A2A2A] shrink-0 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
             <div class="space-y-3 mb-6">
                 <div class="flex justify-between text-gray-400">
-                    <span>Subtotal</span>
+                    <span>المجموع الفرعي</span>
                     <span>${{ number_format($subtotal, 2) }}</span>
                 </div>
                 <div class="flex justify-between text-gray-400">
-                    <span>Tax</span>
+                    <span>الضريبة</span>
                     <span>${{ number_format($tax, 2) }}</span>
                 </div>
                 <div class="flex justify-between text-2xl font-bold text-gray-100 pt-3 border-t border-[#2A2A2A]">
-                    <span>Total</span>
+                    <span>الإجمالي</span>
                     <span class="text-amber-500">${{ number_format($total, 2) }}</span>
                 </div>
             </div>
 
             <div class="grid grid-cols-2 gap-3 mb-4">
                 <button wire:click="$set('paymentMethod', 'cash')" class="py-3 rounded-xl font-bold border-2 transition-colors {{ $paymentMethod === 'cash' ? 'border-amber-500 text-amber-500 bg-amber-500/10' : 'border-[#2A2A2A] text-gray-400 hover:border-gray-500' }}">
-                    CASH
+                    نقدي
                 </button>
                 <button wire:click="$set('paymentMethod', 'card')" class="py-3 rounded-xl font-bold border-2 transition-colors {{ $paymentMethod === 'card' ? 'border-amber-500 text-amber-500 bg-amber-500/10' : 'border-[#2A2A2A] text-gray-400 hover:border-gray-500' }}">
-                    CARD
+                    بطاقة
                 </button>
             </div>
 
             <button wire:click="checkout" class="w-full py-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-black text-xl font-bold shadow-lg shadow-amber-500/20 active:scale-[0.98] transition-all flex justify-center items-center gap-2">
-                <span wire:loading.remove wire:target="checkout">Pay & Complete</span>
-                <span wire:loading wire:target="checkout">Processing...</span>
+                <span wire:loading.remove wire:target="checkout">دفع وإنهاء</span>
+                <span wire:loading wire:target="checkout">جاري المعالجة...</span>
             </button>
         </div>
     </div>
