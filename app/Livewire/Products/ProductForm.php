@@ -69,6 +69,7 @@ class ProductForm extends Component
 
         $this->closeModal();
         $this->dispatch('productSaved');
+        $this->dispatch('toast-message', message: 'تم حفظ المنتج بنجاح', type: 'success');
     }
 
     public function render()
