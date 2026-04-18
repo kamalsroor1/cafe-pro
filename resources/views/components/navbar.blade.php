@@ -11,7 +11,7 @@
     <div class="flex items-center gap-4">
         {{-- Shift Status --}}
         <span class="px-3 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400">
-            No Active Shift
+            لا يوجد شفت مفتوح
         </span>
     </div>
 </header>
