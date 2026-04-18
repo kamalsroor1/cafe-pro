@@ -41,30 +41,64 @@
 ### 🌱 Seeders
 - [ ] `database/seeders/RolesAndPermissionsSeeder.php`
 - [ ] `database/seeders/AdminUserSeeder.php`
-- [ ] `database/seeders/CategorySeeder.php`
-- [ ] `database/seeders/ProductSeeder.php`
-- [ ] Register all seeders in `DatabaseSeeder.php`
-- [ ] Run `php artisan db:seed`
+- [x] Run `php artisan key:generate`
+- [x] Configure `.env` — DB, Redis, App settings
+- [x] Create `config/cafepro.php`
+- [x] Install & configure Livewire 3
+- [x] Install & configure Tailwind CSS v3 with dark theme tokens
+- [x] Install & configure Alpine.js
+- [x] Add `Inter` font from Google Fonts to layout
+- [x] Configure `tailwind.config.js` with `base`, `surface`, `elevated` colors
+
+### 🗄️ Migrations
+- [x] Add `is_active` column to `users` migration
+- [x] Create `create_categories_table` migration
+- [x] Create `create_products_table` migration
+- [x] Create `create_product_addons_table` migration
+
+### 📦 Packages
+- [x] `composer require spatie/laravel-permission`
+- [x] `composer require spatie/laravel-activitylog`
+- [x] `php artisan vendor:publish` — Spatie Permission
+- [x] `php artisan vendor:publish` — Activity Log
+- [x] `php artisan migrate`
+
+### 🧩 Models
+- [x] `app/Models/User.php` — add `HasRoles`, `SoftDeletes`, `HasApiTokens`
+- [x] `app/Models/Category.php` — `parent()`, `children()`, `products()`
+- [x] `app/Models/Product.php` — `SoftDeletes`, `category()`, `addons()`, `ingredients()`
+- [x] `app/Models/ProductAddon.php` — `belongsTo(Product)`
+
+### ⚙️ Services
+- [x] `app/Services/UserService.php` — `createUser()`, `updateUser()`, `toggleActive()`
+
+### 🌱 Seeders
+- [x] `database/seeders/RolesAndPermissionsSeeder.php`
+- [x] `database/seeders/AdminUserSeeder.php`
+- [x] `database/seeders/CategorySeeder.php`
+- [x] `database/seeders/ProductSeeder.php`
+- [x] Register all seeders in `DatabaseSeeder.php`
+- [x] Run `php artisan db:seed`
 
 ### 🖥️ Layouts & Components (Blade)
-- [ ] `resources/views/layouts/app.blade.php` — dark sidebar + navbar shell
-- [ ] `resources/views/layouts/pos.blade.php` — full-screen, no sidebar
-- [ ] `resources/views/components/sidebar.blade.php` — dark, collapsible, 56px items
-- [ ] `resources/views/components/navbar.blade.php` — dark, shift badge, user menu
-- [ ] `resources/views/components/stat-card.blade.php`
-- [ ] `resources/views/components/status-badge.blade.php`
+- [x] `resources/views/layouts/app.blade.php` — dark sidebar + navbar shell
+- [x] `resources/views/layouts/pos.blade.php` — full-screen, no sidebar
+- [x] `resources/views/components/sidebar.blade.php` — dark, collapsible, 56px items
+- [x] `resources/views/components/navbar.blade.php` — dark, shift badge, user menu
+- [x] `resources/views/components/stat-card.blade.php`
+- [x] `resources/views/components/status-badge.blade.php`
 
 ### 🔥 Livewire Components
-- [ ] `app/Livewire/Auth/Login.php` + view
-- [ ] `app/Livewire/Products/ProductList.php` + view (searchable, paginated)
-- [ ] `app/Livewire/Products/ProductForm.php` + view (create/edit modal)
+- [x] `app/Livewire/Auth/Login.php` + view
+- [x] `app/Livewire/Products/ProductList.php` + view (searchable, paginated)
+- [x] `app/Livewire/Products/ProductForm.php` + view (create/edit modal)
 
 ### ✅ Phase 1 Done When
-- [ ] Login page works (dark theme)
-- [ ] Sidebar shows role-based items
-- [ ] Admin can create/edit/delete products
-- [ ] `php artisan db:seed` runs without errors
-- [ ] Login with `admin@cafepro.com` / `password` works
+- [x] Login page works (dark theme)
+- [x] Sidebar shows role-based items
+- [x] Admin can create/edit/delete products
+- [x] `php artisan db:seed` runs without errors
+- [x] Login with `admin@cafepro.com` / `password` works
 
 ---
 
