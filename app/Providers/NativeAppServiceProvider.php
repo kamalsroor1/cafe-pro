@@ -5,47 +5,49 @@ namespace App\Providers;
 use Native\Laravel\Facades\Window;
 use Native\Laravel\Contracts\ProvidesPhpIni;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
 use App\Models\Product;
+use App\Models\Category;
 
 class NativeAppServiceProvider implements ProvidesPhpIni
 {
-    /**
-     * يتم تنفيذه بمجرد إقلاع التطبيق كبرنامج Desktop.
-     */
     public function boot(): void
     {
-        // 1. تشغيل الميجريشن تلقائياً (مهم جداً عند العميل)
-        // هذا السطر يضمن أن الجداول ستنشأ في ملف SQLite فور فتح البرنامج
-        Artisan::call('migrate', ['--force' => true]);
+        // 1. تشغيل الميجريشن بأمان
+        // نستخدم --force لأننا في بيئة Production الخاصة بـ Desktop
+        // Artisan::call('migrate', ['--force' => true]);
 
-        // 2. إدخال بيانات تجريبية إذا كانت الداتابيز فارغة (اختياري)
+        // 2. إدخال بيانات تجريبية (تأكد من إرسال الحقول الإجبارية)
         $this->seedInitialData();
 
-        // 3. فتح نافذة البرنامج بإعدادات تناسب شاشات التاتش
+        // 3. التحكم في مسار البداية (Login vs Dashboard)
+        // إذا كنت تستخدم Laravel Auth، يفضل توجيه المستخدم للـ Login أولاً
         Window::open()
             ->title('Cafe Pro - نظام إدارة الكافيه')
             ->width(1200)
             ->height(800)
-            ->maximize() // يفتح الشاشة كاملة فوراً
-            ->rememberState() // يحفظ حجم الشاشة لو المستخدم غيره
-            ->showDevTools(false); // إخفاء أدوات المطورين في النسخة النهائية
+            ->maximize()
+            ->rememberState()
+            ->route('login') // تأكد أن لديك Route باسم login
+            ->showDevTools(false);
     }
 
-    /**
-     * دالة للتأكد من وجود أصناف في المنيو عند أول تشغيل
-     */
     protected function seedInitialData(): void
     {
-        if (Product::count() === 0) {
-            Product::create(['name' => 'قهوة تركي', 'price' => 35.00]);
-            Product::create(['name' => 'كابتشينو', 'price' => 55.00]);
-            Product::create(['name' => 'شاي أحمر', 'price' => 15.00]);
+        // ملاحظة: الـ Logs أظهرت أن جدول المنتجات يتطلب category_id
+        // لذا يجب التأكد من وجود قسم أولاً
+        if (Schema::hasTable('products') && Product::count() === 0) {
+            $category = Category::firstOrCreate(['name' => 'General'],['slug' => 'general']);
+            
+            Product::create([
+                'category_id' => $category->id,
+                'name' => 'قهوة تركي', 
+                'price' => 35.00,
+                'slug' => 'turkish-coffee'
+            ]);
         }
     }
 
-    /**
-     * إعدادات php.ini الخاصة بالبرنامج (مثلاً لزيادة حجم الرفع)
-     */
     public function phpIni(): array
     {
         return [

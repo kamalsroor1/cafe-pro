@@ -18,7 +18,7 @@ class Login extends Component
     public function login()
     {
         $this->validate();
-
+        
         $throttleKey = strtolower($this->email).'|'.request()->ip();
 
         if (\Illuminate\Support\Facades\RateLimiter::tooManyAttempts($throttleKey, 5)) {
