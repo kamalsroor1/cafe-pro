@@ -3,13 +3,23 @@
 namespace App\Livewire\Pos;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\RestaurantTable;
 use App\Services\OrderService;
 use App\Services\ShiftService;
 use Livewire\Component;
 
 class Terminal extends Component
 {
+    public $posMode = 'tables';
+
+    public $selectedTable = null;
+
+    public $activeOrderId = null;
+
+    public $tables = [];
+
     public $categories;
 
     public $products;
@@ -35,6 +45,7 @@ class Terminal extends Component
     public function mount(ShiftService $shiftService)
     {
         $this->activeShift = $shiftService->getCurrentShift();
+        $this->tables = RestaurantTable::with('activeOrder.items.product')->orderBy('name')->get();
         $this->categories = Category::whereNull('parent_id')->get();
         $this->loadProducts();
     }
@@ -43,6 +54,84 @@ class Terminal extends Component
     {
         $this->selectedCategory = $categoryId;
         $this->loadProducts();
+    }
+
+    public function openTable($tableId)
+    {
+        $table = RestaurantTable::with('activeOrder.items.product')->findOrFail($tableId);
+        $this->selectedTable = $table;
+
+        if ($table->status === 'occupied' && $table->activeOrder) {
+            $this->activeOrderId = $table->activeOrder->id;
+
+            $this->cart = $table->activeOrder->items->map(function ($item) {
+                return [
+                    'product_id' => $item->product_id,
+                    'name' => $item->product->name,
+                    'quantity' => $item->quantity,
+                    'unit_price' => $item->unit_price,
+                    'subtotal' => $item->subtotal,
+                ];
+            })->toArray();
+        } else {
+            $this->activeOrderId = null;
+            $this->cart = [];
+        }
+
+        $this->calculateTotals();
+        $this->posMode = 'order';
+    }
+
+    public function backToTables()
+    {
+        $this->posMode = 'tables';
+        $this->selectedTable = null;
+        $this->activeOrderId = null;
+        $this->cart = [];
+
+        $this->tables = RestaurantTable::with('activeOrder')->orderBy('name')->get();
+    }
+
+    private function syncCartToDatabase()
+    {
+        if (! $this->selectedTable) {
+            return;
+        }
+
+        if ($this->activeOrderId) {
+            $order = Order::find($this->activeOrderId);
+        } else {
+            $order = Order::create([
+                'table_number' => $this->selectedTable->name,
+                'status' => 'pending',
+                'type' => 'dine_in',
+                'shift_id' => $this->activeShift ? $this->activeShift->id : null,
+                'cashier_id' => auth()->id(),
+                'subtotal' => $this->subtotal,
+                'tax' => $this->tax,
+                'total' => $this->total,
+                'order_number' => 'ORD-'.strtoupper(uniqid()), // Ensure order_number is not null
+            ]);
+            $this->activeOrderId = $order->id;
+            $this->selectedTable->update(['status' => 'occupied']);
+        }
+
+        $order->items()->delete();
+
+        foreach ($this->cart as $item) {
+            $order->items()->create([
+                'product_id' => $item['product_id'],
+                'quantity' => $item['quantity'],
+                'unit_price' => $item['unit_price'],
+                'subtotal' => $item['subtotal'],
+            ]);
+        }
+
+        $order->update([
+            'subtotal' => $this->subtotal,
+            'tax' => $this->tax,
+            'total' => $this->total,
+        ]);
     }
 
     public function loadProducts()
@@ -82,6 +171,7 @@ class Terminal extends Component
         }
 
         $this->calculateTotals();
+        $this->syncCartToDatabase();
     }
 
     public function removeFromCart($index)
@@ -89,6 +179,7 @@ class Terminal extends Component
         unset($this->cart[$index]);
         $this->cart = array_values($this->cart);
         $this->calculateTotals();
+        $this->syncCartToDatabase();
     }
 
     public function updateQuantity($index, $change)
@@ -99,6 +190,7 @@ class Terminal extends Component
         } else {
             $this->cart[$index]['subtotal'] = $this->cart[$index]['quantity'] * $this->cart[$index]['unit_price'];
             $this->calculateTotals();
+            $this->syncCartToDatabase();
         }
     }
 
@@ -136,9 +228,25 @@ class Terminal extends Component
             ]);
 
             $this->lastOrder = $order;
+
+            if ($this->activeOrderId) {
+                $pendingOrder = Order::find($this->activeOrderId);
+                if ($pendingOrder) {
+                    $pendingOrder->delete();
+                }
+            }
+
+            if ($this->selectedTable) {
+                $this->selectedTable->update(['status' => 'available']);
+            }
+
             $this->cart = [];
+            $this->activeOrderId = null;
+            $this->selectedTable = null;
+            $this->posMode = 'tables';
+            $this->tables = RestaurantTable::with('activeOrder')->orderBy('name')->get();
             $this->calculateTotals();
-            
+
             $this->dispatch('toast-message', message: 'تم الدفع وإنهاء الطلب بنجاح', type: 'success');
 
         } catch (\Exception $e) {

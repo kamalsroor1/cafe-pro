@@ -16,4 +16,9 @@ class RestaurantTable extends Model
     {
         return $this->hasMany(Order::class, 'table_number', 'name'); // or however the relationship maps
     }
+
+    public function activeOrder()
+    {
+        return $this->hasOne(Order::class, 'table_number', 'name')->where('status', 'pending')->latest();
+    }
 }

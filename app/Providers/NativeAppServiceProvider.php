@@ -13,11 +13,11 @@ class NativeAppServiceProvider implements ProvidesPhpIni
 {
     public function boot(): void
     {
-        // 1. تشغيل الميجريشن بأمان
-        // نستخدم --force لأننا في بيئة Production الخاصة بـ Desktop
+        // 1. تشغيل الميجريشن والسييد بأمان
         // Artisan::call('migrate', ['--force' => true]);
+        // Artisan::call('db:seed', ['--force' => true]);
 
-        // 2. إدخال بيانات تجريبية (تأكد من إرسال الحقول الإجبارية)
+        // 2. إدخال بيانات تجريبية
         $this->seedInitialData();
 
         // 3. التحكم في مسار البداية (Login vs Dashboard)
