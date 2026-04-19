@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('product_addons', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('product_id')->constrained('products');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('product_id')->constrained('products');
             $table->string('name');
             $table->decimal('price', 10, 2);
             $table->boolean('is_available')->default(true);
