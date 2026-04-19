@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class ShiftManager extends Component
 {
-    public ?int $activeShiftId = null;
+    public ?string $activeShiftId = null;
 
     public $startingCash = 0;
 
