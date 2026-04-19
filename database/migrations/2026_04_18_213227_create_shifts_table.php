@@ -9,9 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shifts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('started_by')->constrained('users');
-            $table->foreignId('closed_by')->nullable()->constrained('users');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('started_by')->constrained('users');
+            $table->foreignUuid('closed_by')->nullable()->constrained('users');
             $table->decimal('starting_cash', 10, 2);
             $table->decimal('ending_cash', 10, 2)->nullable();
             $table->timestamp('started_at');
