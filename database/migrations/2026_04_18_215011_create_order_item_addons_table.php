@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_item_addons', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('order_item_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('product_addon_id')->constrained()->cascadeOnDelete();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('order_item_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('product_addon_id')->constrained()->cascadeOnDelete();
             $table->integer('quantity')->default(1);
             $table->decimal('price', 10, 2);
             $table->decimal('subtotal', 10, 2);
