@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ingredients', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('name');
             $table->enum('unit', ['g', 'kg', 'ml', 'l', 'pcs', 'tbsp', 'tsp']);
             $table->decimal('stock_qty', 10, 3)->default(0);
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('supplier')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('stock_qty');
         });
     }
