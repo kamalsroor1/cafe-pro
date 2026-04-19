@@ -42,6 +42,13 @@ class Terminal extends Component
 
     public $lastOrder = null;
 
+    protected $listeners = ['shiftUpdated' => 'refreshShiftStatus'];
+
+    public function refreshShiftStatus()
+    {
+        $this->activeShift = app(ShiftService::class)->getCurrentShift();
+    }
+
     public function mount(ShiftService $shiftService)
     {
         $this->activeShift = $shiftService->getCurrentShift();

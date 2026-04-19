@@ -10,8 +10,18 @@
 
     <div class="flex items-center gap-4">
         {{-- Shift Status --}}
-        <span class="px-3 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400">
-            لا يوجد شفت مفتوح
-        </span>
+        @php
+            $activeShift = \App\Models\Shift::where('status', 'open')->first();
+        @endphp
+
+        @if($activeShift)
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                الشفت مفتوح
+            </span>
+        @else
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-red-500/20 text-red-400 border border-red-500/30">
+                لا يوجد شفت مفتوح
+            </span>
+        @endif
     </div>
 </header>
