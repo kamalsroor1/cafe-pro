@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('wastage_logs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('ingredient_id')->constrained('ingredients');
-            $table->foreignId('shift_id')->nullable(); // no foreign key yet since shifts table isn't created
-            $table->foreignId('recorded_by')->constrained('users');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('ingredient_id')->constrained('ingredients');
+            $table->uuid('shift_id')->nullable(); // no foreign key yet since shifts table isn't created
+            $table->foreignUuid('recorded_by')->constrained('users');
             $table->decimal('qty_wasted', 10, 3);
             $table->decimal('cost_value', 10, 2);
             $table->enum('reason', ['expired', 'damaged', 'spillage', 'other']);
