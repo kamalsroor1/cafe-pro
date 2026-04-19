@@ -108,6 +108,9 @@ class Terminal extends Component
         if ($this->activeOrderId) {
             $order = Order::find($this->activeOrderId);
         } else {
+            if (! $this->activeShift) {
+                return;
+            }
             $order = Order::create([
                 'table_number' => $this->selectedTable->name,
                 'status' => 'pending',
