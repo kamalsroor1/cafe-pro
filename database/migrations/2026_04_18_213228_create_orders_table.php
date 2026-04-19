@@ -9,11 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('order_number')->unique();
-            $table->foreignId('shift_id')->constrained('shifts');
-            $table->foreignId('cashier_id')->constrained('users');
-            $table->foreignId('waiter_id')->nullable()->constrained('users');
+            $table->foreignUuid('shift_id')->constrained('shifts');
+            $table->foreignUuid('cashier_id')->constrained('users');
+            $table->foreignUuid('waiter_id')->nullable()->constrained('users');
             $table->enum('type', ['dine_in', 'takeaway', 'delivery'])->default('dine_in');
             $table->string('table_number')->nullable();
             $table->integer('guest_count')->nullable();
