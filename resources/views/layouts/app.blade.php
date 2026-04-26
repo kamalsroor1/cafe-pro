@@ -1,3 +1,4 @@
+{{-- MOBILE RESPONSIVE: app.blade.php --}}
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" class="dark">
 
@@ -34,18 +35,33 @@
     </script>
 </head>
 
-<body class="bg-base text-gray-100 font-sans flex h-screen overflow-hidden antialiased">
+<body x-data="{ sidebarOpen: false }" class="bg-base text-gray-100 font-sans flex h-screen overflow-hidden antialiased">
     @include('components.sidebar')
 
-    <div class="flex flex-col flex-1 overflow-hidden">
+    <div class="flex flex-col flex-1 w-full max-w-full overflow-hidden">
         @include('components.navbar')
 
-        <main class="flex-1 overflow-y-auto p-6">
+        <main class="flex-1 overflow-y-auto p-4 md:p-6 w-full">
             {{ $slot }}
         </main>
     </div>
 
     @include('components.toast')
+
+    {{-- Mobile Sidebar Overlay --}}
+    <div x-show="sidebarOpen" 
+         @click="sidebarOpen = false"
+         x-transition.opacity 
+         class="fixed inset-0 bg-black/50 z-40 lg:hidden"
+         style="display: none;">
+    </div>
 </body>
 
 </html>
+{{-- 
+  CHANGES:
+  - Added x-data="{ sidebarOpen: false }" to body for mobile drawer state.
+  - Replaced fixed flex widths with full width responsive classes.
+  - Added mobile sidebar overlay div with x-show/transition.
+  - Adjusted main content padding for mobile.
+--}}
