@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', Login::class)->name('login');
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/', Dashboard::class)->name('dashboard');
 
@@ -24,6 +26,14 @@ Route::middleware('auth')->group(function () {
 
         return redirect()->route('login');
     })->name('logout');
+
+
+    Route::get('/sw.js', function () {
+        return response()->file(public_path('sw.js'), [
+            'Content-Type' => 'application/javascript',
+            'Service-Worker-Allowed' => '/',
+        ]);
+    })->name('sw');
 
     Route::middleware('permission:manage products')->group(function () {
         Route::get('/products', ProductList::class)->name('products.index');
