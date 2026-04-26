@@ -5,10 +5,10 @@
     <div class="flex-1 flex flex-col h-full w-full">
         <header class="h-16 lg:h-20 bg-surface/50 backdrop-blur-xl border-b border-[#2A2A2A] flex items-center justify-between px-4 lg:px-8 shrink-0">
             <div class="flex items-center gap-3 md:gap-6">
-                <!-- Hamburger on Mobile instead of Back -->
-                <button @click="sidebarOpen = true" class="lg:hidden p-2 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-xl bg-base border border-[#2A2A2A] text-gray-400 hover:text-amber-500 hover:border-amber-500/50 transition-all">
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
+                <!-- Back to dashboard -->
+                <a href="{{ route('dashboard') }}" class="lg:hidden p-2 min-h-[48px] min-w-[48px] flex items-center justify-center rounded-xl bg-base border border-[#2A2A2A] text-gray-400 hover:text-amber-500 hover:border-amber-500/50 transition-all">
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                </a>
                 <div class="hidden lg:block">
                     <h1 class="text-xl md:text-2xl font-black text-gray-100 tracking-tight">إدارة الطاولات</h1>
                     <p class="text-[10px] md:text-xs text-gray-500 font-bold uppercase tracking-widest mt-0.5">شاشة اختيار الطاولة والطلبات المفتوحة</p>
